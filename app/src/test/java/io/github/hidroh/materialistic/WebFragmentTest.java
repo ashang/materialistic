@@ -44,6 +44,7 @@ import io.github.hidroh.materialistic.test.TestRunner;
 import io.github.hidroh.materialistic.test.WebActivity;
 import io.github.hidroh.materialistic.test.shadow.ShadowNestedScrollView;
 import io.github.hidroh.materialistic.test.shadow.ShadowWebView;
+import rx.schedulers.Schedulers;
 
 import static io.github.hidroh.materialistic.test.shadow.CustomShadows.customShadowOf;
 import static junit.framework.Assert.assertEquals;
@@ -149,6 +150,7 @@ public class WebFragmentTest {
     @SuppressLint("NewApi")
     @Test
     public void testAdBlocker() {
+        AdBlocker.init(RuntimeEnvironment.application, Schedulers.immediate());
         WebView webView = (WebView) activity.findViewById(R.id.web_view);
         WebViewClient client = shadowOf(webView).getWebViewClient();
         assertNull(client.shouldInterceptRequest(webView, "http://google.com"));
